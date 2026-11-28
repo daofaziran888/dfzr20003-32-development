@@ -94,3 +94,19 @@ body { margin: 0; background: #f6f8fb; color: #1f2937; }
 .btn.accent { background: #7c3aed; border-color: #7c3aed; color: #fff; }
 .status-legend { display: flex; gap: 16px; margin: 0 0 8px; font-size: 12px; color: var(--muted); }
 .legend-item { display: inline-block; }
+/* 抢录交接与续采面板 */
+.handover-panel { margin-top: 16px; border: 1px solid var(--border); border-radius: 8px; background: #fff; padding: 16px; }
+.handover-body { display: flex; flex-direction: column; gap: 12px; }
+.handover-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; padding: 12px; background: #fafbfc; border: 1px solid var(--border); border-radius: 8px; }
+.handover-form label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+.handover-form input { padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; }
+.handover-toolbar { display: flex; gap: 10px; align-items: flex-end; }
+.handover-select { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+.handover-select select { padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; min-width: 260px; }
+.handover-view { display: flex; flex-direction: column; gap: 8px; }
+.handover-meta { margin: 0; font-size: 13px; color: #374151; }
+.handover-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.handover-lists h4 { margin: 0 0 6px; font-size: 13px; color: var(--muted); }
+.handover-lists ul { margin: 0; padding-left: 18px; font-size: 13px; }
+.handover-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.handover-message { margin: 0; font-size: 13px; color: var(--brand); }

@@ -16,7 +16,9 @@
 │   └── vite.config.ts        dev server 配置（open: false）
 ├── backend/                  FastAPI（Python） 后端
 │   ├── app/routers/resource.py  通用查询/导出/登记/动作接口
+│   ├── app/routers/rescue_handover.py  抢录交接续采接口
 │   ├── app/services/<key>.py    每个模块独立领域逻辑
+│   ├── app/services/rescue_handover.py  停工续办、委托单、幂等回执
 │   ├── app/services/base.py     共享服务骨架
 │   └── app/store.py          内存数据仓库与示例数据
 ├── .gitignore
@@ -76,6 +78,21 @@ npm run dev
   `frontend/src/domain/<模块>.ts`，用于承载真实业务差异并维持36题位容量。
 - 列表接口统一返回 `{ items, total, page, size }`，动作接口统一返回 `{ ok, message }`。
 - 状态流转只允许在 `app/services` 里改，路由层不做业务判断。
+
+## 抢录交接续采
+
+濒危抢救项目在启动之外新增「临时停工」「关闭项目」两个动作，剩余采集任务凭交接号
+（即项目登记编号）续办，由 `app/services/rescue_handover.py` 承载：
+
+- 临时停工时把抢录交付进度持久保存；续办时签发续采证据委托单（含证据编号），
+  数字化采集凭单重新进入原交接任务，按委托续采并同步待办片段与签收回执。
+- 已签收原片的保管记录长期留存，重新初始化不丢失；同一拍摄段断网重提最多
+  收到一次已签收回执。
+- 关闭项目后不得在原编号下发布新片，关停前已交付的片段与后续使用范围仍可查核；
+  关闭与重投交错时，关停前已传输完成的片段签收归属原传输，回执仍只发一次。
+
+接口前缀 `/api/rescue-handover`（开通、委托单、凭单重进、传输/签收/提交、进度与
+使用范围查核），前端在濒危抢救与数字化采集工作台内嵌「抢录交接与续采」面板。
 
 领域：应用开发
 子方向：web前端

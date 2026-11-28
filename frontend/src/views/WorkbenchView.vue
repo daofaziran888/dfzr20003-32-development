@@ -73,8 +73,9 @@
       </tbody>
     </table>
 
-    <div v-if="showCreate" class="modal-backdrop" data-testid="create-modal">
-      <form class="modal" @submit.prevent="submitCreate">
+    <RescueHandoverPanel v-if="showHandoverPanel" :context="meta.key" />
+
+    <div v-if="showCreate" class="modal-backdrop" data-testid="create-modal">      <form class="modal" @submit.prevent="submitCreate">
         <h3>登记{{ meta.entity }}</h3>
         <label v-for="field in meta.fields" :key="field" class="create-field">
           <span>{{ field }}</span>
@@ -132,6 +133,7 @@ import {
 } from '@/api/backend-service'
 import { fetchJson } from '@/api/client'
 import type { EntryRow } from '@/data/types'
+import RescueHandoverPanel from '@/views/RescueHandoverPanel.vue'
 
 const props = defineProps<{ moduleKey: string }>()
 const meta = moduleMeta(props.moduleKey)
@@ -154,6 +156,9 @@ const chainEdges = ref<any[]>([])
 
 const showHeritageChainButton = computed(() =>
   ['skill_card', 'artisan'].includes(meta.key)
+)
+const showHandoverPanel = computed(() =>
+  ['emer_rescue', 'digitization'].includes(meta.key)
 )
 const stats = computed(() => [
   { label: meta.metrics[0], value: total.value },
